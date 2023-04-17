@@ -30,7 +30,7 @@ var gearUtil = function() {
     };
   };
 
-  var quadParam = { n : 3, dt : 0.05 };
+  var quadParams = { n : 3, dt : 0.05 };
 
   var createGear = function(opts) {
 
@@ -59,7 +59,7 @@ var gearUtil = function() {
     for (var m = 0; m < z; m += 1) {
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
-        min : tMin, max : tMax, n : quadParam.n, dt : quadParam.dt });
+        min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           if (m == 0) {
@@ -72,7 +72,7 @@ var gearUtil = function() {
       tOffset += Math.PI / z;
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
-        min : -tMax, max : tMin, n : quadParam.n, dt : quadParam.dt });
+        min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           pb.lineTo(qPts[i][0], qPts[i][1]);
@@ -135,7 +135,7 @@ var gearUtil = function() {
     for (var m = 0; m < z; m += 1) {
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
-        min : -tMax, max : tMin, n : quadParam.n, dt : quadParam.dt });
+        min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           if (m == 0) {
@@ -148,7 +148,7 @@ var gearUtil = function() {
       tOffset += Math.PI / z;
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
-        min : tMin, max : tMax, n : quadParam.n, dt : quadParam.dt });
+        min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           pb.lineTo(qPts[i][0], qPts[i][1]);
