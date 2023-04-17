@@ -30,12 +30,11 @@ var gearUtil = function() {
     };
   };
 
+  var quadParam = { n : 3, dt : 0.05 };
+
   var createGear = function(opts) {
 
-    opts = svgtk.extend({ m : 20, z : 20 }, opts);
-
-    var a = Math.PI * 20 / 180;
-    var n = 3;
+    opts = svgtk.extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
     var m = opts.m;
     var z = opts.z;
@@ -43,7 +42,7 @@ var gearUtil = function() {
     var d = z * m;
     var d1 = d - 2.5 * m;
     var d2 = d + 2 * m;
-    var db = d * Math.cos(a);
+    var db = d * Math.cos(opts.a);
 
     var r = db / 2;
     r = Math.max(r, d1 / 2); // fix - r
@@ -60,7 +59,7 @@ var gearUtil = function() {
     for (var m = 0; m < z; m += 1) {
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
-        min : tMin, max : tMax, n : n, dt : 0.05 });
+        min : tMin, max : tMax, n : quadParam.n, dt : quadParam.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           if (m == 0) {
@@ -73,7 +72,7 @@ var gearUtil = function() {
       tOffset += Math.PI / z;
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
-        min : -tMax, max : tMin, n : n, dt : 0.05 });
+        min : -tMax, max : tMin, n : quadParam.n, dt : quadParam.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           pb.lineTo(qPts[i][0], qPts[i][1]);
@@ -111,10 +110,7 @@ var gearUtil = function() {
 
   var createInnerGear = function(opts) {
 
-    opts = svgtk.extend({ m : 20, z : 20 }, opts);
-
-    var a = Math.PI * 20 / 180;
-    var n = 3;
+    opts = svgtk.extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
     var m = opts.m;
     var z = opts.z;
@@ -122,7 +118,7 @@ var gearUtil = function() {
     var d = z * m;
     var d1 = d + 2.5 * m;
     var d2 = d - 2 * m;
-    var db = d * Math.cos(a);
+    var db = d * Math.cos(opts.a);
 
     var r = db / 2;
     r = Math.max(r, d2 / 2); // fix - r
@@ -139,7 +135,7 @@ var gearUtil = function() {
     for (var m = 0; m < z; m += 1) {
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
-        min : -tMax, max : tMin, n : n, dt : 0.05 });
+        min : -tMax, max : tMin, n : quadParam.n, dt : quadParam.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           if (m == 0) {
@@ -152,7 +148,7 @@ var gearUtil = function() {
       tOffset += Math.PI / z;
 
       qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
-        min : tMin, max : tMax, n : n, dt : 0.05 });
+        min : tMin, max : tMax, n : quadParam.n, dt : quadParam.dt });
       for (i = 0; i < qPts.length; i += 1) {
         if (i == 0) {
           pb.lineTo(qPts[i][0], qPts[i][1]);
