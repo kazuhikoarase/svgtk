@@ -1,0 +1,20 @@
+{
+  "name": "svgtk",
+  "version": "0.0.1",
+  "description": "SVG Toolkit",
+  "author": "Kazuhiko Arase",
+  "main": "src/svgtk.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kazuhikoarase/svgtk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kazuhikoarase/svgtk/issues"
+  },
+  "keywords": [
+    "SVG"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
