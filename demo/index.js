@@ -420,6 +420,7 @@ window.addEventListener('load', function() {
     !function() {
       var d = $math.getQuadPoints({ fn : fn,
         min : tMin, max : tMax, n : n, dt : 0.05 });
+      drawDebugPoints($base, d);
       var pb = $pb();
       for (var i = 0; i < d.length; i += 1) {
         if (i == 0) {
