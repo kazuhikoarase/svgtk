@@ -1,4 +1,6 @@
 //
+// svgtk
+//
 // Copyright (c) 2023 Kazuhiko Arase
 //
 // URL: http://www.d-project.com/
