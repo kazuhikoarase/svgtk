@@ -535,16 +535,16 @@ window.addEventListener('load', function() {
     var gear3 = gearUtil.createInnerGear({ m : m, z : 60 });
 
     var g1 = $('g').append($('path').attrs({
-      d : gear1.path, fill : 'none', stroke : sc2 }) );
+      d : gear1.path, fill : 'none', stroke : '#666' }) );
     var g2 = [];
     !function() {
       for (var i = 0; i < 4; i += 1) {
         g2.push($('g').append($('path').attrs({
-          d : gear2.path, fill : 'none', stroke : sc2 }) ) );
+          d : gear2.path, fill : 'none', stroke : '#666' }) ) );
       }
     }();
     var g3 = $('g').append($('path').attrs({
-      d : gear3.path, fill : 'none', stroke : sc2 }) );
+      d : gear3.path, fill : 'none', stroke : '#666' }) );
 
     $base.append(g1);
     g2.forEach(function(g) {
@@ -552,28 +552,30 @@ window.addEventListener('load', function() {
     });
     $base.append(g3);
 
-    var a = 0;
+    var model = {
+      angle : 0
+    };
     var update = function() {
-      g1.attrs({ transform : $tb().rotate(a).build() });
+      g1.attrs({ transform : $tb().rotate(model.angle).build() });
       g2.forEach(function(g, i) {
         g.attrs({ transform : $tb().
           rotate(Math.PI / 2 * i).
           translate( (gear1.d + gear2.d) / 2, 0).
-          rotate(-a * gear1.z / gear2.z).build() });
+          rotate(-model.angle * gear1.z / gear2.z).build() });
       });
       g3.attrs({ transform : $tb().
         rotate(Math.PI / gear3.z).
-        rotate(-a * gear1.z / gear3.z).build() });
+        rotate(-model.angle * gear1.z / gear3.z).build() });
     };
 
-    var frameHandler = function(t) {
+    var enterFrame = function(t) {
       if (typeof t != 'undefined') {
-        a = t / 5000;
+        model.angle = t / 5000;
         update();
       }
-      window.requestAnimationFrame(frameHandler);
+      window.requestAnimationFrame(enterFrame);
     };
-    frameHandler();
+    enterFrame();
 
     $(document.body).append($s);
   }();
