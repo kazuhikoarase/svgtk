@@ -11,7 +11,7 @@
 
 'use strict'
 
-import { svgtk } from '../src/svgtk.js';
+import { svgtk } from './svgtk.js';
 
 export var gearUtil = function() {
 
