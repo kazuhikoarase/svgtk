@@ -1,6 +1,9 @@
 
 'use strict'
 
+import { svgtk } from '../src/svgtk.js';
+import { gearUtil } from '../src/gear-util.js';
+
 window.addEventListener('load', function() {
 
   var $ = svgtk.domWrapper;

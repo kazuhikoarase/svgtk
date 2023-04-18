@@ -11,7 +11,9 @@
 
 'use strict'
 
-var gearUtil = function() {
+import { svgtk } from '../src/svgtk.js';
+
+export var gearUtil = function() {
 
   var $pb = svgtk.pathBuilder;
   var $math = svgtk.math;

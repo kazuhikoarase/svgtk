@@ -11,7 +11,7 @@
 
 'use strict'
 
-var svgtk = function() {
+export var svgtk = function() {
 
   var extend = function(o) {
     for (var i = 1; i < arguments.length; i += 1) {
