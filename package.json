@@ -1,6 +1,6 @@
 {
   "name": "svgtk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "SVG Toolkit",
   "author": "Kazuhiko Arase",
   "main": "src/svgtk.js",
