@@ -708,7 +708,7 @@ window.addEventListener('load', function() {
             var a = 2 * Math.PI / numPies;
             g2[g2.length - 1].append($('path').attrs({
               d : gearUtil.createPie({
-                r1 : 10, r2 : gear2.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
+                r1 : 15, r2 : gear2.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
                 a : a, offsetAngle : a * i }).path,
                 fill : 'none', stroke : '#666'
             }) );
