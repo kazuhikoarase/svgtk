@@ -686,13 +686,37 @@ window.addEventListener('load', function() {
 
     var g1 = $('g').append($('path').attrs({
       d : gear1.path, fill : 'none', stroke : '#666' }) );
+    !function(numPies) {
+      for (var i = 0; i < numPies; i += 1) {
+        var a = 2 * Math.PI / numPies;
+        g1.append($('path').attrs({
+          d : gearUtil.createPie({
+            r1 : 10, r2 : gear1.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
+            a : a, offsetAngle : a * i }).path,
+            fill : 'none', stroke : '#666'
+        }) );
+      }
+    }(4);
+
     var g2 = [];
     !function() {
       for (var i = 0; i < 4; i += 1) {
         g2.push($('g').append($('path').attrs({
           d : gear2.path, fill : 'none', stroke : '#666' }) ) );
+        !function(numPies) {
+          for (var i = 0; i < numPies; i += 1) {
+            var a = 2 * Math.PI / numPies;
+            g2[g2.length - 1].append($('path').attrs({
+              d : gearUtil.createPie({
+                r1 : 10, r2 : gear2.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
+                a : a, offsetAngle : a * i }).path,
+                fill : 'none', stroke : '#666'
+            }) );
+          }
+        }(6);
       }
     }();
+
     var g3 = $('g').append($('path').attrs({
       d : gear3.path, fill : 'none', stroke : '#666' }) );
 

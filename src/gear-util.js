@@ -181,7 +181,7 @@ export var gearUtil = function() {
 
     opts = svgtk.extend({
       r1 : 100, r2 : 200, r3 : 10, r4 : 10,
-      w : 10, a : Math.PI / 4, offsetAngle : 0
+      w : 10, a : Math.PI / 2, offsetAngle : 0
     }, opts);
 
     var arcs = [];
