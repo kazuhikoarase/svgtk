@@ -1,0 +1,90 @@
+import u from "./math.mjs";
+const c = function() {
+  const e = {};
+  return "svg g path rect circle text".split(/\s+/g).forEach(function(n) {
+    e[n] = !0;
+  }), function(n) {
+    return typeof n == "string" && (n = e[n] ? document.createElementNS("http://www.w3.org/2000/svg", n) : document.createElement(n)), {
+      $el: n,
+      on: function(t, r) {
+        return this.$el.addEventListener(t, r), this;
+      },
+      off: function(t, r) {
+        return this.$el.removeEventListener(t, r), this;
+      },
+      attrs: function(t) {
+        for (let r in t)
+          this.$el.setAttribute(r, "" + t[r]);
+        return this;
+      },
+      props: function(t) {
+        for (let r in t)
+          this.$el[r] = t[r];
+        return this;
+      },
+      style: function(t) {
+        for (let r in t)
+          this.$el.style[r] = "" + t[r];
+        return this;
+      },
+      append: function(t) {
+        return this.$el.appendChild(t.$el), this;
+      },
+      remove: function(t) {
+        return this.$el.removeChild(t.$el), this;
+      }
+    };
+  };
+}(), f = function() {
+  let e = "";
+  return {
+    moveTo: function(n, t) {
+      return e += "M" + n + " " + t, this;
+    },
+    lineTo: function(n, t) {
+      return e += "L" + n + " " + t, this;
+    },
+    quadTo: function(n, t, r, i) {
+      return e += "Q" + n + " " + t + " " + r + " " + i, this;
+    },
+    cubicTo: function(n, t, r, i, o, s) {
+      return e += "C" + n + " " + t + " " + r + " " + i + " " + o + " " + s, this;
+    },
+    close: function() {
+      return e += "Z", this;
+    },
+    build: function() {
+      return e;
+    }
+  };
+}, h = function() {
+  let e = "";
+  return {
+    translate: function(n, t) {
+      return e += "translate(" + n + " " + t + ")", this;
+    },
+    rotate: function(n) {
+      return e += "rotate(" + u.r2d(n) + ")", this;
+    },
+    scale: function(n, t) {
+      return e += "scale(" + n + " " + t + ")", this;
+    },
+    skewX: function(n) {
+      return e += "skewX(" + u.r2d(n) + ")", this;
+    },
+    skewY: function(n) {
+      return e += "skewY(" + u.r2d(n) + ")", this;
+    },
+    build: function() {
+      return e;
+    }
+  };
+}, a = {
+  domWrapper: c,
+  pathBuilder: f,
+  tranBuilder: h
+};
+export {
+  a as default
+};
+//# sourceMappingURL=svgtk.mjs.map

@@ -9,11 +9,19 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-   
     lib: {
-      entry: resolve(__dirname, 'src/svgtk.ts'),
-      name: 'svgtk',
-      fileName: 'svgtk',
+      entry: [
+        resolve(__dirname, 'src/core.ts'),
+        resolve(__dirname, 'src/mat4.ts'),
+        resolve(__dirname, 'src/math.ts'),
+        resolve(__dirname, 'src/svgtk.ts'),
+        resolve(__dirname, 'src/gear-util.ts')
+      ],
+      name: 'Svgtk',
+      fileName: (format, entryName) =>
+        format == 'cjs'? `${entryName}.js` :
+        format == 'es'? `${entryName}.mjs` :
+        `${entryName}.${format}.js`,
       formats: ['cjs', 'es'],
     },
   },

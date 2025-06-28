@@ -4,7 +4,8 @@
   "description": "SVG Toolkit",
   "author": "Kazuhiko Arase",
   "license": "MIT",
-  "main": "src/svgtk.js",
+  "main": "dist/svgtk.js",
+  "module": "dist/svgtk.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/kazuhikoarase/svgtk.git"

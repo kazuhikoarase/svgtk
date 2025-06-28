@@ -1,7 +1,7 @@
 //
 // gear-util
 //
-// Copyright (c) 2023 Kazuhiko Arase
+// Copyright (c) 2025 Kazuhiko Arase
 //
 // URL: http://www.d-project.com/
 //
@@ -9,13 +9,12 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-'use strict'
-
-import { svgtk } from './svgtk';
-
+import { extend } from './core';
+import svgtk from './svgtk';
+import math from './math';
+import mat4 from './mat4';
 
 const $pb = svgtk.pathBuilder;
-const $math = svgtk.math;
 
 // t = sqrt(rr^2 / r^2 - 1)
 const get_t = function(r : number, rr : number) {
@@ -34,22 +33,32 @@ const get_fn = function(r : number, t0 : number) {
 const quadParams = { n : 3, dt : 0.05 };
 
 interface GearOpts {
-  m? : number;
-  z? : number;
-  a? : number;
+  m : number;
+  z : number;
+  a : number;
+}
+
+interface PieOpts {
+  r1 : number;
+  r2 : number;
+  r3 : number;
+  r4 : number;
+  w : number;
+  a : number;
+  offsetAngle : number;
 }
 
 const createGear = function(opts : GearOpts) {
 
-  opts = svgtk.extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
+  opts = extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
-  const m = opts.m!;
-  const z = opts.z!;
+  const m = opts.m;
+  const z = opts.z;
 
-  const d = z! * m;
+  const d = z * m;
   const d1 = d - 2.5 * m;
   const d2 = d + 2 * m;
-  const db = d * Math.cos(opts.a!);
+  const db = d * Math.cos(opts.a);
 
   let r = db / 2;
   r = Math.max(r, d1 / 2); // fix - r
@@ -65,7 +74,7 @@ const createGear = function(opts : GearOpts) {
 
   for (let m = 0; m < z; m += 1) {
 
-    qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
+    qPts = math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
       min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -78,7 +87,7 @@ const createGear = function(opts : GearOpts) {
     }
     tOffset += Math.PI / z;
 
-    qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
+    qPts = math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
       min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -117,15 +126,15 @@ const createGear = function(opts : GearOpts) {
 
 const createInnerGear = function(opts : GearOpts) {
 
-  opts = svgtk.extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
+  opts = extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
-  const m = opts.m!;
-  const z = opts.z!;
+  const m = opts.m;
+  const z = opts.z;
 
   const d = z * m;
   const d1 = d + 2.5 * m;
   const d2 = d - 2 * m;
-  const db = d * Math.cos(opts.a!);
+  const db = d * Math.cos(opts.a);
 
   let r = db / 2;
   r = Math.max(r, d2 / 2); // fix - r
@@ -141,7 +150,7 @@ const createInnerGear = function(opts : GearOpts) {
 
   for (let m = 0; m < z; m += 1) {
 
-    qPts = $math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
+    qPts = math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
       min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -154,7 +163,7 @@ const createInnerGear = function(opts : GearOpts) {
     }
     tOffset += Math.PI / z;
 
-    qPts = $math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
+    qPts = math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
       min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -182,106 +191,88 @@ const createInnerGear = function(opts : GearOpts) {
   };
 };
 
-interface PieOpts {
-  r1? : number;
-r2? : number;
-r3? : number;
-r4? : number;
-w? : number;
-a? : number;
-offsetAngle? : number;
-}
-
 const createPie = function(opts : PieOpts) {
 
-  opts = svgtk.extend({
+  opts = extend({
     r1 : 100, r2 : 200, r3 : 10, r4 : 10,
     w : 10, a : Math.PI / 2, offsetAngle : 0
   }, opts);
 
   const arcs : { order : number, cx : number, cy : number, r : number, t0 : number, t1 : number }[] = [];
 
-  const r1 =  opts.r1!;
-  const r2 =  opts.r2!;
-  const r3 =  opts.r3!;
-  const r4 =  opts.r4!;
-  const w =  opts.w!;
-  const a =  opts.a!;
-  const offsetAngle =  opts.offsetAngle!;
-  
   !function() : any {
-    const a = Math.asin( (w / 2 + r3) / (r1 + r3) );
-    const x = r1 * Math.cos(a);
-    const y = r1 * Math.sin(a);
+    const a = Math.asin( (opts.w / 2 + opts.r3) / (opts.r1 + opts.r3) );
+    const x = opts.r1 * Math.cos(a);
+    const y = opts.r1 * Math.sin(a);
     const t = Math.atan2(y, x);
     arcs.push({ order : 0, cx : 0, cy : 0,
-      r : r1, t0 : a - t, t1 : t });
+      r : opts.r1, t0 : opts.a - t, t1 : t });
   }();
 
   !function() : any {
     let dt;
     !function(a) : any {
-      const x = r1 * Math.cos(a);
-      const y = r1 * Math.sin(a);
-      const cx = (r1 + r3) * Math.cos(a);
-      const cy = (r1 + r3) * Math.sin(a);
+      const x = opts.r1 * Math.cos(a);
+      const y = opts.r1 * Math.sin(a);
+      const cx = (opts.r1 + opts.r3) * Math.cos(a);
+      const cy = (opts.r1 + opts.r3) * Math.sin(a);
       const t0 = Math.atan2(y - cy, x - cx);
-      const t1 = Math.atan2(w / 2 - cy, 0);
+      const t1 = Math.atan2(opts.w / 2 - cy, 0);
       arcs.push({ order : 1, cx : cx, cy : cy,
-        r : r3, t0 : t0, t1 : t1 });
+        r : opts.r3, t0 : t0, t1 : t1 });
       dt = t1 - t0;
-    }(Math.asin( (w / 2 + r3) / (r1 + r3) ) );
+    }(Math.asin( (opts.w / 2 + opts.r3) / (opts.r1 + opts.r3) ) );
     !function(a) : any {
-      const x = r1 * Math.cos(a);
-      const y = r1 * Math.sin(a);
-      const cx = (r1 + r3) * Math.cos(a);
-      const cy = (r1 + r3) * Math.sin(a);
+      const x = opts.r1 * Math.cos(a);
+      const y = opts.r1 * Math.sin(a);
+      const cx = (opts.r1 + opts.r3) * Math.cos(a);
+      const cy = (opts.r1 + opts.r3) * Math.sin(a);
       const t0 = Math.atan2(y - cy, x - cx);
       const t1 = t0 - dt;
       arcs.push({ order : 5, cx : cx, cy : cy,
-        r : r3, t0 : t1, t1 : t0 });
-    }(a - Math.asin( (w / 2 + r3) / (r1 + r3) ) );
+        r : opts.r3, t0 : t1, t1 : t0 });
+    }(opts.a - Math.asin( (opts.w / 2 + opts.r3) / (opts.r1 + opts.r3) ) );
   }();
 
   !function() : any {
-    const a = Math.asin( (w / 2 + r4) / (r2 - r4) );
-    const x = r2 * Math.cos(a);
-    const y = r2 * Math.sin(a);
+    const a = Math.asin( (opts.w / 2 + opts.r4) / (opts.r2 - opts.r4) );
+    const x = opts.r2 * Math.cos(a);
+    const y = opts.r2 * Math.sin(a);
     const t = Math.atan2(y, x);
     arcs.push({ order : 3, cx : 0, cy : 0,
-      r : r2, t0 : t, t1 : a - t });
+      r : opts.r2, t0 : t, t1 : opts.a - t });
   }();
 
   !function() : any {
     let dt;
     !function(a) : any {
-      const x = r2 * Math.cos(a);
-      const y = r2 * Math.sin(a);
-      const cx = (r2 - r4) * Math.cos(a);
-      const cy = (r2 - r4) * Math.sin(a);
-      const t0 = Math.atan2(w / 2 - cy, 0);
+      const x = opts.r2 * Math.cos(a);
+      const y = opts.r2 * Math.sin(a);
+      const cx = (opts.r2 - opts.r4) * Math.cos(a);
+      const cy = (opts.r2 - opts.r4) * Math.sin(a);
+      const t0 = Math.atan2(opts.w / 2 - cy, 0);
       const t1 = Math.atan2(y - cy, x - cx);
       arcs.push({ order : 2, cx : cx, cy : cy,
-        r : r4, t0 : t0, t1 : t1 });
+        r : opts.r4, t0 : t0, t1 : t1 });
       dt = t1 - t0;
-    }(Math.asin( (w / 2 + r4) / (r2 - r4) ) );
+    }(Math.asin( (opts.w / 2 + opts.r4) / (opts.r2 - opts.r4) ) );
     !function(a) : any {
-      const x = r2 * Math.cos(a);
-      const y = r2 * Math.sin(a);
-      const cx = (r2 - r4) * Math.cos(a);
-      const cy = (r2 - r4) * Math.sin(a);
+      const x = opts.r2 * Math.cos(a);
+      const y = opts.r2 * Math.sin(a);
+      const cx = (opts.r2 - opts.r4) * Math.cos(a);
+      const cy = (opts.r2 - opts.r4) * Math.sin(a);
       const t1 = Math.atan2(y - cy, x - cx);
       const t0 = t1 + dt;
       arcs.push({ order : 4, cx : cx, cy : cy,
-        r : r4, t0 : t1, t1 : t0 });
-    }(a - Math.asin( (w / 2 + r4) / (r2 - r4) ) );
+        r : opts.r4, t0 : t1, t1 : t0 });
+    }(opts.a - Math.asin( (opts.w / 2 + opts.r4) / (opts.r2 - opts.r4) ) );
   }();
 
   arcs.sort(function(a1, a2) {
     return a1.order < a2.order ? -1 : 1;
   });
 
-  const mat = $math.mat4().rotateZ(offsetAngle);
+  const mat = mat4().rotateZ(opts.offsetAngle);
 
   const pb = $pb();
   arcs.forEach(function(arc) {
@@ -291,7 +282,7 @@ const createPie = function(opts : PieOpts) {
         arc.r * Math.sin(t) + arc.cy
       ];
     };
-    const d = $math.getQuadPoints({ fn : fn,
+    const d = math.getQuadPoints({ fn : fn,
       min : arc.t0, max : arc.t1, n : 4, dt : 0.05 });
     for (let i = 0; i < d.length; i += 1) {
       d[i] = mat.transform([d[i][0], d[i][1]]).
