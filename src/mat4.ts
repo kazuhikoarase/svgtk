@@ -25,8 +25,8 @@ type Mat4Funcs = {
   rotateZ(r : number) : Mat4;
   translate(t : { x : number, y : number, z : number}) : Mat4;
   scale(s : { x : number, y : number, z : number} | number) : Mat4;
-transpose() : Mat4Array;
-invert() : Mat4;
+  transpose() : Mat4Array;
+  invert() : Mat4;
 }
 
 interface Mat4 extends Mat4Array, Mat4Funcs {
@@ -46,7 +46,6 @@ interface Mat4 extends Mat4Array, Mat4Funcs {
   transpose() : Mat4Array;
   invert() : Mat4;
 }
-
 
 const mat4 : (m? : Mat4Array) => Mat4 = function() {
   const fn : Mat4Funcs = {

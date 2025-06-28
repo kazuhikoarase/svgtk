@@ -11,14 +11,15 @@
 
 import { extend } from './core';
 
-const r2d = function(rad : number) { return rad * 180 / Math.PI; };
+export const d2r = (deg : number) => deg / 180 * Math.PI;
+export const r2d = (rad : number) => rad / Math.PI * 180;
 
 const inv = function(m : number[]) {
   const det = m[0] * m[3] - m[1] * m[2];
   return [m[3] / det, -m[1] / det, -m[2] / det, m[0] / det];
 };
 
-const getCrossPoint = function(a : number[], va : number[], b : number[], vb : number[]) {
+export const getCrossPoint = function(a : number[], va : number[], b : number[], vb : number[]) {
   const m = inv([va[0], -vb[0], va[1], -vb[1]]);
   const v = [b[0] - a[0], b[1] - a[1]];
   //const st = [m[0] * v[0] + m[1] * v[1], m[2] * v[0] + m[3] * v[1]];
@@ -35,7 +36,7 @@ interface QuadPointsOpts {
   dt : number;
 }
 
-const getQuadPoints = function(opts : QuadPointsOpts) {
+export const getQuadPoints = function(opts : QuadPointsOpts) {
 
   opts = extend({
     fn : function(t : number) { return [t, t] },
@@ -81,6 +82,7 @@ const getQuadPoints = function(opts : QuadPointsOpts) {
 
 export default {
   r2d,
+  d2r,
   getCrossPoint,
   getQuadPoints
 };
