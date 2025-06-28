@@ -1,10 +1,10 @@
 
 'use strict'
 
-import { extend, eventTarget } from '../dist/core';
-import math from '../dist/math';
-import svgtk from '../dist/svgtk';
-import gearUtil from '../dist/gear-util';
+import { extend, eventTarget } from '../dist/core.mjs';
+import math from '../dist/math.mjs';
+import svgtk from '../dist/svgtk.mjs';
+import gearUtil from '../dist/gear-util.mjs';
 
 window.addEventListener('load', function() {
 
