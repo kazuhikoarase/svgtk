@@ -1,11 +1,17 @@
 {
   "name": "svgtk",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "SVG Toolkit",
   "author": "Kazuhiko Arase",
   "license": "MIT",
   "main": "dist/svgtk.js",
   "module": "dist/svgtk.mjs",
+  "types": "dist/svgtk.d.ts",
+  "exports": {
+    "types": "./dist/svgtk.d.ts",
+    "require": "./dist/svgtk.js",
+    "import": "./dist/svgtk.mjs"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kazuhikoarase/svgtk.git"

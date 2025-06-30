@@ -11,9 +11,6 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: [
-        resolve(__dirname, 'src/core.ts'),
-        resolve(__dirname, 'src/mat4.ts'),
-        resolve(__dirname, 'src/math.ts'),
         resolve(__dirname, 'src/svgtk.ts'),
         resolve(__dirname, 'src/gear-util.ts')
       ],

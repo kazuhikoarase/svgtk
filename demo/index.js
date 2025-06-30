@@ -1,10 +1,16 @@
 
 'use strict'
 
-import { extend, eventTarget } from '../dist/core.mjs';
-import { getCrossPoint, getQuadPoints } from '../dist/math.mjs';
-import { domWrapper as $, pathBuilder as $pb, tranBuilder as $tb } from '../dist/svgtk.mjs';
+import svgtk from '../dist/svgtk.mjs';
 import { createGear, createInnerGear, createPie } from '../dist/gear-util.mjs';
+
+const extend = svgtk.core.extend;
+const eventTarget = svgtk.core.eventTarget;
+const $ = svgtk.core.domWrapper;
+const getCrossPoint = svgtk.math.getCrossPoint;
+const getQuadPoints = svgtk.math.getQuadPoints;
+const $pb = svgtk.pathBuilder;
+const $tb = svgtk.tranBuilder;
 
 window.addEventListener('load', function() {
 

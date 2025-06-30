@@ -222,3 +222,5 @@ export const mat4 : (m? : Mat4Array) => Mat4 = function() {
     return _m;
   };
 }();
+
+export default mat4;
