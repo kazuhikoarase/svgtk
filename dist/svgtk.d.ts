@@ -1,11 +1,4 @@
-declare const _default: {
-    domWrapper: (elm: HTMLElement | SVGElement | string) => DOMWrapper;
-    pathBuilder: () => PathBuilder;
-    tranBuilder: () => TranBuilder;
-};
-export default _default;
-
-declare interface DOMWrapper {
+export declare interface DOMWrapper {
     $el: HTMLElement | SVGElement | any;
     on(type: string, l: EventListener): DOMWrapper;
     off(type: string, l: EventListener): DOMWrapper;
@@ -16,11 +9,13 @@ declare interface DOMWrapper {
     remove($elm: DOMWrapper): DOMWrapper;
 }
 
+export declare const domWrapper: (elm: HTMLElement | SVGElement | string) => DOMWrapper;
+
 declare type ElementParams = {
     [k: string]: any;
 };
 
-declare interface PathBuilder {
+export declare interface PathBuilder {
     moveTo(x: number, y: number): PathBuilder;
     lineTo(x: number, y: number): PathBuilder;
     quadTo(cx: number, cy: number, x: number, y: number): PathBuilder;
@@ -29,7 +24,9 @@ declare interface PathBuilder {
     build(): string;
 }
 
-declare interface TranBuilder {
+export declare const pathBuilder: () => PathBuilder;
+
+export declare interface TranBuilder {
     translate(x: number, y: number): TranBuilder;
     rotate(rad: number): TranBuilder;
     scale(x: number, y: number): TranBuilder;
@@ -37,5 +34,7 @@ declare interface TranBuilder {
     skewY(rad: number): TranBuilder;
     build(): string;
 }
+
+export declare const tranBuilder: () => TranBuilder;
 
 export { }

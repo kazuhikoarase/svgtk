@@ -28,7 +28,7 @@ export const getCrossPoint = function(a : number[], va : number[], b : number[],
   return [a[0] + va[0] * s, a[1] + va[1] * s];
 };
 
-interface QuadPointsOpts {
+export interface QuadPointsOpts {
   fn : (t : number) => number[];
   min : number;
   max : number;
@@ -78,11 +78,4 @@ export const getQuadPoints = function(opts : QuadPointsOpts) {
   const qp : any = quadPoints;
   qp.points = points;
   return quadPoints;
-};
-
-export default {
-  r2d,
-  d2r,
-  getCrossPoint,
-  getQuadPoints
 };

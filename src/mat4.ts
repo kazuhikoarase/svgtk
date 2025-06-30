@@ -9,7 +9,7 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-type Mat4Array = number[];
+export type Mat4Array = number[];
 
 type Mat4Funcs = {
   concat(m : Mat4Array) : Mat4;
@@ -29,7 +29,7 @@ type Mat4Funcs = {
   invert() : Mat4;
 }
 
-interface Mat4 extends Mat4Array, Mat4Funcs {
+export interface Mat4 extends Mat4Array, Mat4Funcs {
   concat(m : Mat4Array) : Mat4;
   transform(m : Mat4Array) : Mat4Array;
   translateX(t : number) : Mat4;
@@ -47,7 +47,7 @@ interface Mat4 extends Mat4Array, Mat4Funcs {
   invert() : Mat4;
 }
 
-const mat4 : (m? : Mat4Array) => Mat4 = function() {
+export const mat4 : (m? : Mat4Array) => Mat4 = function() {
   const fn : Mat4Funcs = {
     concat : function(n) {
       const m : any = this;
@@ -222,5 +222,3 @@ const mat4 : (m? : Mat4Array) => Mat4 = function() {
     return _m;
   };
 }();
-
-export default mat4;

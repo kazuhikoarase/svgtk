@@ -1,4 +1,4 @@
-declare interface Mat4 extends Mat4Array, Mat4Funcs {
+export declare interface Mat4 extends Mat4Array, Mat4Funcs {
     concat(m: Mat4Array): Mat4;
     transform(m: Mat4Array): Mat4Array;
     translateX(t: number): Mat4;
@@ -24,10 +24,9 @@ declare interface Mat4 extends Mat4Array, Mat4Funcs {
     invert(): Mat4;
 }
 
-declare const mat4: (m?: Mat4Array) => Mat4;
-export default mat4;
+export declare const mat4: (m?: Mat4Array) => Mat4;
 
-declare type Mat4Array = number[];
+export declare type Mat4Array = number[];
 
 declare type Mat4Funcs = {
     concat(m: Mat4Array): Mat4;

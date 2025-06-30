@@ -1,102 +1,102 @@
 import { extend as w } from "./core.mjs";
-import Q from "./svgtk.mjs";
-import b from "./math.mjs";
-import v from "./mat4.mjs";
-const z = Q.pathBuilder, q = function(t, e) {
-  return Math.sqrt(e * e / (t * t) - 1);
-}, y = function(t, e) {
+import { pathBuilder as z } from "./svgtk.mjs";
+import { getQuadPoints as b } from "./math.mjs";
+import { mat4 as v } from "./mat4.mjs";
+const g = function(n, e) {
+  return Math.sqrt(e * e / (n * n) - 1);
+}, q = function(n, e) {
   return function(i) {
     return [
-      t * Math.cos(i + e) + t * i * Math.sin(i + e),
-      t * Math.sin(i + e) - t * i * Math.cos(i + e)
+      n * Math.cos(i + e) + n * i * Math.sin(i + e),
+      n * Math.sin(i + e) - n * i * Math.cos(i + e)
     ];
   };
-}, T = { n: 3, dt: 0.05 }, A = function(t) {
-  t = w({ m: 20, z: 20, a: Math.PI * 20 / 180 }, t);
-  const e = t.m, i = t.z, u = i * e, o = u - 2.5 * e, r = u + 2 * e;
-  let n = u * Math.cos(t.a) / 2;
-  n = Math.max(n, o / 2);
-  const f = Math.PI * 2 * 0, s = q(n, r / 2), d = y(n, 0)(q(n, u / 2)), M = -Math.atan(d[1] / d[0]), l = z();
-  let a, c, g = 0;
+}, y = { n: 3, dt: 0.05 }, B = function(n) {
+  n = w({ m: 20, z: 20, a: Math.PI * 20 / 180 }, n);
+  const e = n.m, i = n.z, u = i * e, h = u - 2.5 * e, c = u + 2 * e;
+  let t = u * Math.cos(n.a) / 2;
+  t = Math.max(t, h / 2);
+  const f = Math.PI * 2 * 0, M = g(t, c / 2), d = q(t, 0)(g(t, u / 2)), s = -Math.atan(d[1] / d[0]), l = z();
+  let a, r, I = 0;
   for (let x = 0; x < i; x += 1) {
-    for (c = b.getQuadPoints({
-      fn: y(n, M + g),
+    for (r = b({
+      fn: q(t, s + I),
       min: f,
-      max: s,
-      n: T.n,
-      dt: T.dt
-    }), a = 0; a < c.length; a += 1)
-      a == 0 ? x == 0 && l.moveTo(c[a][0], c[a][1]) : l.quadTo(c[a][0], c[a][1], c[a][2], c[a][3]);
-    for (g += Math.PI / i, c = b.getQuadPoints({
-      fn: y(n, -M + g),
-      min: -s,
+      max: M,
+      n: y.n,
+      dt: y.dt
+    }), a = 0; a < r.length; a += 1)
+      a == 0 ? x == 0 && l.moveTo(r[a][0], r[a][1]) : l.quadTo(r[a][0], r[a][1], r[a][2], r[a][3]);
+    for (I += Math.PI / i, r = b({
+      fn: q(t, -s + I),
+      min: -M,
       max: f,
-      n: T.n,
-      dt: T.dt
-    }), a = 0; a < c.length; a += 1)
-      a == 0 ? l.lineTo(c[a][0], c[a][1]) : l.quadTo(c[a][0], c[a][1], c[a][2], c[a][3]);
-    g += Math.PI / i, function() {
+      n: y.n,
+      dt: y.dt
+    }), a = 0; a < r.length; a += 1)
+      a == 0 ? l.lineTo(r[a][0], r[a][1]) : l.quadTo(r[a][0], r[a][1], r[a][2], r[a][3]);
+    I += Math.PI / i, function() {
       let m;
-      const I = o / 2, P = [];
-      m = Math.PI / i * (x * 2 + 1) - M, P.push([I * Math.cos(m), I * Math.sin(m)]), m = Math.PI / i * (x * 2 + 1.5), P.push([I * Math.cos(m), I * Math.sin(m)]), m = Math.PI / i * (x * 2 + 2) + M, P.push([I * Math.cos(m), I * Math.sin(m)]), m = Math.PI / i * (x * 2 + 2) + M, P.push([n * Math.cos(m), n * Math.sin(m)]), l.quadTo(P[0][0], P[0][1], P[1][0], P[1][1]), l.quadTo(P[2][0], P[2][1], P[3][0], P[3][1]);
+      const T = h / 2, P = [];
+      m = Math.PI / i * (x * 2 + 1) - s, P.push([T * Math.cos(m), T * Math.sin(m)]), m = Math.PI / i * (x * 2 + 1.5), P.push([T * Math.cos(m), T * Math.sin(m)]), m = Math.PI / i * (x * 2 + 2) + s, P.push([T * Math.cos(m), T * Math.sin(m)]), m = Math.PI / i * (x * 2 + 2) + s, P.push([t * Math.cos(m), t * Math.sin(m)]), l.quadTo(P[0][0], P[0][1], P[1][0], P[1][1]), l.quadTo(P[2][0], P[2][1], P[3][0], P[3][1]);
     }();
   }
   return l.close(), {
     m: e,
     z: i,
     d: u,
-    d1: o,
-    d2: r,
-    r: n,
+    d1: h,
+    d2: c,
+    r: t,
     tMin: f,
-    tMax: s,
-    t0: M,
+    tMax: M,
+    t0: s,
     path: l.build()
   };
-}, G = function(t) {
-  t = w({ m: 20, z: 20, a: Math.PI * 20 / 180 }, t);
-  const e = t.m, i = t.z, u = i * e, o = u + 2.5 * e, r = u - 2 * e;
-  let n = u * Math.cos(t.a) / 2;
-  n = Math.max(n, r / 2);
-  const f = Math.PI * 2 * 0, s = q(n, o / 2), d = y(n, 0)(q(n, u / 2)), M = -Math.atan(d[1] / d[0]), l = z();
-  let a, c, g = 0;
+}, E = function(n) {
+  n = w({ m: 20, z: 20, a: Math.PI * 20 / 180 }, n);
+  const e = n.m, i = n.z, u = i * e, h = u + 2.5 * e, c = u - 2 * e;
+  let t = u * Math.cos(n.a) / 2;
+  t = Math.max(t, c / 2);
+  const f = Math.PI * 2 * 0, M = g(t, h / 2), d = q(t, 0)(g(t, u / 2)), s = -Math.atan(d[1] / d[0]), l = z();
+  let a, r, I = 0;
   for (let x = 0; x < i; x += 1) {
-    for (c = b.getQuadPoints({
-      fn: y(n, -M + g),
-      min: -s,
+    for (r = b({
+      fn: q(t, -s + I),
+      min: -M,
       max: f,
-      n: T.n,
-      dt: T.dt
-    }), a = 0; a < c.length; a += 1)
-      a == 0 ? x == 0 && l.moveTo(c[a][0], c[a][1]) : l.quadTo(c[a][0], c[a][1], c[a][2], c[a][3]);
-    for (g += Math.PI / i, c = b.getQuadPoints({
-      fn: y(n, M + g),
+      n: y.n,
+      dt: y.dt
+    }), a = 0; a < r.length; a += 1)
+      a == 0 ? x == 0 && l.moveTo(r[a][0], r[a][1]) : l.quadTo(r[a][0], r[a][1], r[a][2], r[a][3]);
+    for (I += Math.PI / i, r = b({
+      fn: q(t, s + I),
       min: f,
-      max: s,
-      n: T.n,
-      dt: T.dt
-    }), a = 0; a < c.length; a += 1)
-      a == 0 ? l.lineTo(c[a][0], c[a][1]) : l.quadTo(c[a][0], c[a][1], c[a][2], c[a][3]);
-    g += Math.PI / i, function() {
+      max: M,
+      n: y.n,
+      dt: y.dt
+    }), a = 0; a < r.length; a += 1)
+      a == 0 ? l.lineTo(r[a][0], r[a][1]) : l.quadTo(r[a][0], r[a][1], r[a][2], r[a][3]);
+    I += Math.PI / i, function() {
       let m;
-      const I = o / 2;
-      m = Math.PI / i * (x * 2 + 1.5) - M, l.lineTo(I * Math.cos(m), I * Math.sin(m));
+      const T = h / 2;
+      m = Math.PI / i * (x * 2 + 1.5) - s, l.lineTo(T * Math.cos(m), T * Math.sin(m));
     }();
   }
   return l.close(), {
     m: e,
     z: i,
     d: u,
-    d1: o,
-    d2: r,
-    r: n,
+    d1: h,
+    d2: c,
+    r: t,
     tMin: f,
-    tMax: s,
-    t0: M,
+    tMax: M,
+    t0: s,
     path: l.build()
   };
-}, O = function(t) {
-  t = w({
+}, Q = function(n) {
+  n = w({
     r1: 100,
     r2: 200,
     r3: 10,
@@ -104,100 +104,98 @@ const z = Q.pathBuilder, q = function(t, e) {
     w: 10,
     a: Math.PI / 2,
     offsetAngle: 0
-  }, t);
+  }, n);
   const e = [];
   (function() {
-    const o = Math.asin((t.w / 2 + t.r3) / (t.r1 + t.r3)), r = t.r1 * Math.cos(o), h = t.r1 * Math.sin(o), n = Math.atan2(h, r);
+    const h = Math.asin((n.w / 2 + n.r3) / (n.r1 + n.r3)), c = n.r1 * Math.cos(h), o = n.r1 * Math.sin(h), t = Math.atan2(o, c);
     e.push({
       order: 0,
       cx: 0,
       cy: 0,
-      r: t.r1,
-      t0: t.a - n,
-      t1: n
+      r: n.r1,
+      t0: n.a - t,
+      t1: t
     });
   })(), function() {
-    let o;
-    (function(r) {
-      const h = t.r1 * Math.cos(r), n = t.r1 * Math.sin(r), f = (t.r1 + t.r3) * Math.cos(r), s = (t.r1 + t.r3) * Math.sin(r), d = Math.atan2(n - s, h - f), M = Math.atan2(t.w / 2 - s, 0);
+    let h;
+    (function(c) {
+      const o = n.r1 * Math.cos(c), t = n.r1 * Math.sin(c), f = (n.r1 + n.r3) * Math.cos(c), M = (n.r1 + n.r3) * Math.sin(c), d = Math.atan2(t - M, o - f), s = Math.atan2(n.w / 2 - M, 0);
       e.push({
         order: 1,
         cx: f,
-        cy: s,
-        r: t.r3,
+        cy: M,
+        r: n.r3,
         t0: d,
-        t1: M
-      }), o = M - d;
-    })(Math.asin((t.w / 2 + t.r3) / (t.r1 + t.r3))), function(r) {
-      const h = t.r1 * Math.cos(r), n = t.r1 * Math.sin(r), f = (t.r1 + t.r3) * Math.cos(r), s = (t.r1 + t.r3) * Math.sin(r), d = Math.atan2(n - s, h - f), M = d - o;
+        t1: s
+      }), h = s - d;
+    })(Math.asin((n.w / 2 + n.r3) / (n.r1 + n.r3))), function(c) {
+      const o = n.r1 * Math.cos(c), t = n.r1 * Math.sin(c), f = (n.r1 + n.r3) * Math.cos(c), M = (n.r1 + n.r3) * Math.sin(c), d = Math.atan2(t - M, o - f), s = d - h;
       e.push({
         order: 5,
         cx: f,
-        cy: s,
-        r: t.r3,
-        t0: M,
+        cy: M,
+        r: n.r3,
+        t0: s,
         t1: d
       });
-    }(t.a - Math.asin((t.w / 2 + t.r3) / (t.r1 + t.r3)));
+    }(n.a - Math.asin((n.w / 2 + n.r3) / (n.r1 + n.r3)));
   }(), function() {
-    const o = Math.asin((t.w / 2 + t.r4) / (t.r2 - t.r4)), r = t.r2 * Math.cos(o), h = t.r2 * Math.sin(o), n = Math.atan2(h, r);
+    const h = Math.asin((n.w / 2 + n.r4) / (n.r2 - n.r4)), c = n.r2 * Math.cos(h), o = n.r2 * Math.sin(h), t = Math.atan2(o, c);
     e.push({
       order: 3,
       cx: 0,
       cy: 0,
-      r: t.r2,
-      t0: n,
-      t1: t.a - n
+      r: n.r2,
+      t0: t,
+      t1: n.a - t
     });
   }(), function() {
-    let o;
-    (function(r) {
-      const h = t.r2 * Math.cos(r), n = t.r2 * Math.sin(r), f = (t.r2 - t.r4) * Math.cos(r), s = (t.r2 - t.r4) * Math.sin(r), d = Math.atan2(t.w / 2 - s, 0), M = Math.atan2(n - s, h - f);
+    let h;
+    (function(c) {
+      const o = n.r2 * Math.cos(c), t = n.r2 * Math.sin(c), f = (n.r2 - n.r4) * Math.cos(c), M = (n.r2 - n.r4) * Math.sin(c), d = Math.atan2(n.w / 2 - M, 0), s = Math.atan2(t - M, o - f);
       e.push({
         order: 2,
         cx: f,
-        cy: s,
-        r: t.r4,
+        cy: M,
+        r: n.r4,
         t0: d,
-        t1: M
-      }), o = M - d;
-    })(Math.asin((t.w / 2 + t.r4) / (t.r2 - t.r4))), function(r) {
-      const h = t.r2 * Math.cos(r), n = t.r2 * Math.sin(r), f = (t.r2 - t.r4) * Math.cos(r), s = (t.r2 - t.r4) * Math.sin(r), d = Math.atan2(n - s, h - f), M = d + o;
+        t1: s
+      }), h = s - d;
+    })(Math.asin((n.w / 2 + n.r4) / (n.r2 - n.r4))), function(c) {
+      const o = n.r2 * Math.cos(c), t = n.r2 * Math.sin(c), f = (n.r2 - n.r4) * Math.cos(c), M = (n.r2 - n.r4) * Math.sin(c), d = Math.atan2(t - M, o - f), s = d + h;
       e.push({
         order: 4,
         cx: f,
-        cy: s,
-        r: t.r4,
+        cy: M,
+        r: n.r4,
         t0: d,
-        t1: M
+        t1: s
       });
-    }(t.a - Math.asin((t.w / 2 + t.r4) / (t.r2 - t.r4)));
-  }(), e.sort(function(o, r) {
-    return o.order < r.order ? -1 : 1;
+    }(n.a - Math.asin((n.w / 2 + n.r4) / (n.r2 - n.r4)));
+  }(), e.sort(function(h, c) {
+    return h.order < c.order ? -1 : 1;
   });
-  const i = v().rotateZ(t.offsetAngle), u = z();
-  return e.forEach(function(o) {
-    const r = function(n) {
-      return [
-        o.r * Math.cos(n) + o.cx,
-        o.r * Math.sin(n) + o.cy
-      ];
-    }, h = b.getQuadPoints({
-      fn: r,
-      min: o.t0,
-      max: o.t1,
+  const i = v().rotateZ(n.offsetAngle), u = z();
+  return e.forEach(function(h) {
+    const o = b({
+      fn: function(t) {
+        return [
+          h.r * Math.cos(t) + h.cx,
+          h.r * Math.sin(t) + h.cy
+        ];
+      },
+      min: h.t0,
+      max: h.t1,
       n: 4,
       dt: 0.05
     });
-    for (let n = 0; n < h.length; n += 1)
-      h[n] = i.transform([h[n][0], h[n][1]]).concat(i.transform([h[n][2], h[n][3]])), n == 0 ? o.order == 0 ? u.moveTo(h[n][0], h[n][1]) : (o.order == 2 || o.order == 5) && u.lineTo(h[n][0], h[n][1]) : u.quadTo(h[n][0], h[n][1], h[n][2], h[n][3]);
+    for (let t = 0; t < o.length; t += 1)
+      o[t] = i.transform([o[t][0], o[t][1]]).concat(i.transform([o[t][2], o[t][3]])), t == 0 ? h.order == 0 ? u.moveTo(o[t][0], o[t][1]) : (h.order == 2 || h.order == 5) && u.lineTo(o[t][0], o[t][1]) : u.quadTo(o[t][0], o[t][1], o[t][2], o[t][3]);
   }), u.close(), { path: u.build() };
-}, U = {
-  createGear: A,
-  createInnerGear: G,
-  createPie: O
 };
 export {
-  U as default
+  B as createGear,
+  E as createInnerGear,
+  Q as createPie
 };
 //# sourceMappingURL=gear-util.mjs.map

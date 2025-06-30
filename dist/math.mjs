@@ -1,11 +1,11 @@
 import { extend as f } from "./core.mjs";
-const e = (t) => t / 180 * Math.PI, d = (t) => t / Math.PI * 180, h = function(t) {
+const h = (t) => t / 180 * Math.PI, P = (t) => t / Math.PI * 180, s = function(t) {
   const i = t[0] * t[3] - t[1] * t[2];
   return [t[3] / i, -t[1] / i, -t[2] / i, t[0] / i];
-}, u = function(t, i, c, r) {
-  const n = h([i[0], -r[0], i[1], -r[1]]), o = [c[0] - t[0], c[1] - t[1]], s = n[0] * o[0] + n[1] * o[1];
-  return [t[0] + i[0] * s, t[1] + i[1] * s];
-}, P = function(t) {
+}, e = function(t, i, c, r) {
+  const n = s([i[0], -r[0], i[1], -r[1]]), o = [c[0] - t[0], c[1] - t[1]], u = n[0] * o[0] + n[1] * o[1];
+  return [t[0] + i[0] * u, t[1] + i[1] * u];
+}, x = function(t) {
   t = f({
     fn: function(n) {
       return [n, n];
@@ -25,7 +25,7 @@ const e = (t) => t / 180 * Math.PI, d = (t) => t / Math.PI * 180, h = function(t
   const c = [];
   (function() {
     for (let n = 0; n < t.n; n += 1) {
-      let o = u(
+      let o = e(
         [
           i[n][0][0],
           i[n][0][1]
@@ -48,17 +48,11 @@ const e = (t) => t / 180 * Math.PI, d = (t) => t / Math.PI * 180, h = function(t
   })();
   const r = c;
   return r.points = i, c;
-}, l = {
-  r2d: d,
-  d2r: e,
-  getCrossPoint: u,
-  getQuadPoints: P
 };
 export {
-  e as d2r,
-  l as default,
-  u as getCrossPoint,
-  P as getQuadPoints,
-  d as r2d
+  h as d2r,
+  e as getCrossPoint,
+  x as getQuadPoints,
+  P as r2d
 };
 //# sourceMappingURL=math.mjs.map

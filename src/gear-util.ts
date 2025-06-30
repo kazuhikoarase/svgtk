@@ -10,11 +10,9 @@
 //
 
 import { extend } from './core';
-import svgtk from './svgtk';
-import math from './math';
-import mat4 from './mat4';
-
-const $pb = svgtk.pathBuilder;
+import { pathBuilder as $pb } from './svgtk';
+import { getQuadPoints } from './math';
+import { mat4 } from './mat4';
 
 // t = sqrt(rr^2 / r^2 - 1)
 const get_t = function(r : number, rr : number) {
@@ -32,13 +30,13 @@ const get_fn = function(r : number, t0 : number) {
 
 const quadParams = { n : 3, dt : 0.05 };
 
-interface GearOpts {
+export interface GearOpts {
   m : number;
   z : number;
   a : number;
 }
 
-interface PieOpts {
+export interface PieOpts {
   r1 : number;
   r2 : number;
   r3 : number;
@@ -48,7 +46,7 @@ interface PieOpts {
   offsetAngle : number;
 }
 
-const createGear = function(opts : GearOpts) {
+export const createGear = function(opts : GearOpts) {
 
   opts = extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
@@ -74,7 +72,7 @@ const createGear = function(opts : GearOpts) {
 
   for (let m = 0; m < z; m += 1) {
 
-    qPts = math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
+    qPts = getQuadPoints({ fn : get_fn(r, t0 + tOffset),
       min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -87,7 +85,7 @@ const createGear = function(opts : GearOpts) {
     }
     tOffset += Math.PI / z;
 
-    qPts = math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
+    qPts = getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
       min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -124,7 +122,7 @@ const createGear = function(opts : GearOpts) {
   };
 };
 
-const createInnerGear = function(opts : GearOpts) {
+export const createInnerGear = function(opts : GearOpts) {
 
   opts = extend({ m : 20, z : 20, a : Math.PI * 20 / 180 }, opts);
 
@@ -150,7 +148,7 @@ const createInnerGear = function(opts : GearOpts) {
 
   for (let m = 0; m < z; m += 1) {
 
-    qPts = math.getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
+    qPts = getQuadPoints({ fn : get_fn(r, -t0 + tOffset),
       min : -tMax, max : tMin, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -163,7 +161,7 @@ const createInnerGear = function(opts : GearOpts) {
     }
     tOffset += Math.PI / z;
 
-    qPts = math.getQuadPoints({ fn : get_fn(r, t0 + tOffset),
+    qPts = getQuadPoints({ fn : get_fn(r, t0 + tOffset),
       min : tMin, max : tMax, n : quadParams.n, dt : quadParams.dt });
     for (i = 0; i < qPts.length; i += 1) {
       if (i == 0) {
@@ -191,7 +189,7 @@ const createInnerGear = function(opts : GearOpts) {
   };
 };
 
-const createPie = function(opts : PieOpts) {
+export const createPie = function(opts : PieOpts) {
 
   opts = extend({
     r1 : 100, r2 : 200, r3 : 10, r4 : 10,
@@ -282,7 +280,7 @@ const createPie = function(opts : PieOpts) {
         arc.r * Math.sin(t) + arc.cy
       ];
     };
-    const d = math.getQuadPoints({ fn : fn,
+    const d = getQuadPoints({ fn : fn,
       min : arc.t0, max : arc.t1, n : 4, dt : 0.05 });
     for (let i = 0; i < d.length; i += 1) {
       d[i] = mat.transform([d[i][0], d[i][1]]).
@@ -303,10 +301,4 @@ const createPie = function(opts : PieOpts) {
   pb.close();
 
   return { path : pb.build() };
-};
-
-export default {
-  createGear,
-  createInnerGear,
-  createPie
 };

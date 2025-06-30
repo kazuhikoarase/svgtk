@@ -9,11 +9,11 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-import math from './math';
+import { r2d } from './math';
 
 type ElementParams = {[k : string] : any};
 
-interface DOMWrapper {
+export interface DOMWrapper {
   $el : HTMLElement | SVGElement | any;
   on(type : string, l : EventListener) : DOMWrapper;
   off(type : string, l : EventListener) : DOMWrapper;
@@ -24,7 +24,7 @@ interface DOMWrapper {
   remove($elm : DOMWrapper) : DOMWrapper;
 };
 
-interface PathBuilder {
+export interface PathBuilder {
   moveTo(x : number, y : number) : PathBuilder;
   lineTo(x : number, y : number) : PathBuilder;
   quadTo(cx : number, cy : number, x : number, y : number) : PathBuilder;
@@ -33,7 +33,7 @@ interface PathBuilder {
   build() : string;
 }
 
-interface TranBuilder {
+export interface TranBuilder {
   translate(x : number, y : number) : TranBuilder;
   rotate(rad : number) : TranBuilder;
   scale(x : number, y : number) : TranBuilder;
@@ -42,7 +42,7 @@ interface TranBuilder {
   build() : string;
 }
 
-const domWrapper = function() {
+export const domWrapper = function() {
 
   const svgTagNames : { [tagName : string] : boolean } = {};
   'svg g path rect circle text'.split(/\s+/g).forEach(function(tagName) {
@@ -96,7 +96,7 @@ const domWrapper = function() {
   };
 }();
 
-const pathBuilder : () => PathBuilder = function() {
+export const pathBuilder : () => PathBuilder = function() {
   let d = '';
   return {
     moveTo : function(x, y) { d += 'M' + x + ' ' + y; return this; },
@@ -111,24 +111,18 @@ const pathBuilder : () => PathBuilder = function() {
   };
 };
 
-const tranBuilder : () => TranBuilder = function() {
+export const tranBuilder : () => TranBuilder = function() {
   let t = '';
   return {
     translate : function(x, y) {
       t += 'translate(' + x + ' ' + y + ')'; return this; },
-    rotate : function(rad) { t += 'rotate(' + math.r2d(rad) + ')'; return this; },
+    rotate : function(rad) { t += 'rotate(' + r2d(rad) + ')'; return this; },
     scale : function(x, y) {
       t += 'scale(' + x + ' ' + y + ')'; return this; },
     skewX : function(rad) {
-      t += 'skewX(' + math.r2d(rad) + ')'; return this; },
+      t += 'skewX(' + r2d(rad) + ')'; return this; },
     skewY : function(rad) {
-      t += 'skewY(' + math.r2d(rad) + ')'; return this; },
+      t += 'skewY(' + r2d(rad) + ')'; return this; },
     build : function() { return t; }
   };
-};
-
-export default {
-  domWrapper,
-  pathBuilder,
-  tranBuilder
 };

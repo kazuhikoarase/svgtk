@@ -1,5 +1,5 @@
-import u from "./math.mjs";
-const c = function() {
+import { r2d as u } from "./math.mjs";
+const f = function() {
   const e = {};
   return "svg g path rect circle text".split(/\s+/g).forEach(function(n) {
     e[n] = !0;
@@ -35,7 +35,7 @@ const c = function() {
       }
     };
   };
-}(), f = function() {
+}(), h = function() {
   let e = "";
   return {
     moveTo: function(n, t) {
@@ -57,34 +57,32 @@ const c = function() {
       return e;
     }
   };
-}, h = function() {
+}, l = function() {
   let e = "";
   return {
     translate: function(n, t) {
       return e += "translate(" + n + " " + t + ")", this;
     },
     rotate: function(n) {
-      return e += "rotate(" + u.r2d(n) + ")", this;
+      return e += "rotate(" + u(n) + ")", this;
     },
     scale: function(n, t) {
       return e += "scale(" + n + " " + t + ")", this;
     },
     skewX: function(n) {
-      return e += "skewX(" + u.r2d(n) + ")", this;
+      return e += "skewX(" + u(n) + ")", this;
     },
     skewY: function(n) {
-      return e += "skewY(" + u.r2d(n) + ")", this;
+      return e += "skewY(" + u(n) + ")", this;
     },
     build: function() {
       return e;
     }
   };
-}, a = {
-  domWrapper: c,
-  pathBuilder: f,
-  tranBuilder: h
 };
 export {
-  a as default
+  f as domWrapper,
+  h as pathBuilder,
+  l as tranBuilder
 };
 //# sourceMappingURL=svgtk.mjs.map

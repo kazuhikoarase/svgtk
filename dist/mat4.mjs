@@ -252,6 +252,6 @@ const a = function() {
   };
 }();
 export {
-  a as default
+  a as mat4
 };
 //# sourceMappingURL=mat4.mjs.map

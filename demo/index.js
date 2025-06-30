@@ -2,22 +2,18 @@
 'use strict'
 
 import { extend, eventTarget } from '../dist/core.mjs';
-import math from '../dist/math.mjs';
-import svgtk from '../dist/svgtk.mjs';
-import gearUtil from '../dist/gear-util.mjs';
+import { getCrossPoint, getQuadPoints } from '../dist/math.mjs';
+import { domWrapper as $, pathBuilder as $pb, tranBuilder as $tb } from '../dist/svgtk.mjs';
+import { createGear, createInnerGear, createPie } from '../dist/gear-util.mjs';
 
 window.addEventListener('load', function() {
-
-  const $ = svgtk.domWrapper;
-  const $pb = svgtk.pathBuilder;
-  const $tb = svgtk.tranBuilder;
 
   const drawDebugPoints = function($s, d) {
     const points = d.points;
     const n = points.length - 1;
     !function() {
       for(let i = 0; i < n; i += 1) {
-        const z = math.getCrossPoint(
+        const z = getCrossPoint(
           [points[i][0][0],
            points[i][0][1]],
           [points[i][1][0] - points[i][0][0],
@@ -319,7 +315,7 @@ window.addEventListener('load', function() {
       const p4 = $p4.model;
       const p21 = [p2.x - p1.x, p2.y - p1.y];
       const p43 = [p4.x - p3.x, p4.y - p3.y];
-      const p5 = math.getCrossPoint([p1.x, p1.y], p21, [p3.x, p3.y], p43);
+      const p5 = getCrossPoint([p1.x, p1.y], p21, [p3.x, p3.y], p43);
       $cz.attrs({ cx : p5[0], cy : p5[1] });
       $path1.attrs({ d: $pb().moveTo(p1.x, p1.y).lineTo(p2.x, p2.y).build() });
       $path2.attrs({ d: $pb().moveTo(p3.x, p3.y).lineTo(p4.x, p4.y).build() });
@@ -357,7 +353,7 @@ window.addEventListener('load', function() {
     $s.append($path);
 
     !function() {
-      const d = math.getQuadPoints({ fn : fn,
+      const d = getQuadPoints({ fn : fn,
         min : 0, max : Math.PI * 2, n : n, dt : 0.1 });
       drawDebugPoints($s, d);
       const pb = $pb();
@@ -509,16 +505,13 @@ window.addEventListener('load', function() {
       });
     }();
 
-    $base.append($('path').attrs({
-      d : gearUtil.createPie(opts).path, fill : 'none', stroke : sc2 }) );
+    $base.append($('path').attrs({ d : createPie(opts).path, fill : 'none', stroke : sc2 }) );
 
     opts.offsetAngle = Math.PI / 3;
-    $base.append($('path').attrs({
-      d : gearUtil.createPie(opts).path, fill : 'none', stroke : sc2 }) );
+    $base.append($('path').attrs({ d : createPie(opts).path, fill : 'none', stroke : sc2 }) );
 
     opts.offsetAngle = -Math.PI / 3;
-    $base.append($('path').attrs({
-      d : gearUtil.createPie(opts).path, fill : 'none', stroke : sc2 }) );
+    $base.append($('path').attrs({ d : createPie(opts).path, fill : 'none', stroke : sc2 }) );
 
     $(document.body).append($s);
   }();
@@ -569,7 +562,7 @@ window.addEventListener('load', function() {
     }();
 
     !function() {
-      const d = math.getQuadPoints({ fn : fn,
+      const d = getQuadPoints({ fn : fn,
         min : tMin, max : tMax, n : n, dt : 0.05 });
       drawDebugPoints($base, d);
       const pb = $pb();
@@ -607,9 +600,9 @@ window.addEventListener('load', function() {
     $s.append($base);
 
     const m = 20;
-    const gear1 = gearUtil.createGear({ m : m, z : 20 });
-    const gear2 = gearUtil.createGear({ m : m, z : 16 });
-    const gear3 = gearUtil.createInnerGear({ m : m, z : 48 });
+    const gear1 = createGear({ m : m, z : 20 });
+    const gear2 = createGear({ m : m, z : 16 });
+    const gear3 = createInnerGear({ m : m, z : 48 });
 
     $base.append($('g').append($('path').attrs({
       d : gear1.path, fill : 'none', stroke : sc2 }) ) );
@@ -681,9 +674,9 @@ window.addEventListener('load', function() {
     $s.append($base);
 
     const m = 6;
-    const gear1 = gearUtil.createGear({ m : m, z : 16 });
-    const gear2 = gearUtil.createGear({ m : m, z : 22 });
-    const gear3 = gearUtil.createInnerGear({ m : m, z : 60 });
+    const gear1 = createGear({ m : m, z : 16 });
+    const gear2 = createGear({ m : m, z : 22 });
+    const gear3 = createInnerGear({ m : m, z : 60 });
 
     const g1 = $('g').append($('path').attrs({
       d : gear1.path, fill : 'none', stroke : '#666' }) );
@@ -691,7 +684,7 @@ window.addEventListener('load', function() {
       for(let i = 0; i < numPies; i += 1) {
         const a = 2 * Math.PI / numPies;
         g1.append($('path').attrs({
-          d : gearUtil.createPie({
+          d : createPie({
             r1 : 10, r2 : gear1.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
             a : a, offsetAngle : a * i }).path,
             fill : 'none', stroke : '#666'
@@ -708,7 +701,7 @@ window.addEventListener('load', function() {
           for(let i = 0; i < numPies; i += 1) {
             const a = 2 * Math.PI / numPies;
             g2[g2.length - 1].append($('path').attrs({
-              d : gearUtil.createPie({
+              d : createPie({
                 r1 : 15, r2 : gear2.d1 / 2 - 10, r3: 5, r4: 5, w : 10,
                 a : a, offsetAngle : a * i }).path,
                 fill : 'none', stroke : '#666'
