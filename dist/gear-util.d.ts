@@ -28,13 +28,13 @@ export declare const createPie: (opts: PieOpts) => {
     path: string;
 };
 
-export declare interface GearOpts {
+export declare type GearOpts = {
     m: number;
     z: number;
     a: number;
-}
+};
 
-export declare interface PieOpts {
+export declare type PieOpts = {
     r1: number;
     r2: number;
     r3: number;
@@ -42,6 +42,6 @@ export declare interface PieOpts {
     w: number;
     a: number;
     offsetAngle: number;
-}
+};
 
 export { }

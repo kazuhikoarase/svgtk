@@ -11,7 +11,7 @@
 
 import * as math from './math';
 
-export interface PathBuilder {
+export type PathBuilder = {
   moveTo(x : number, y : number) : PathBuilder;
   lineTo(x : number, y : number) : PathBuilder;
   quadTo(cx : number, cy : number, x : number, y : number) : PathBuilder;
@@ -20,7 +20,7 @@ export interface PathBuilder {
   build() : string;
 }
 
-export interface TranBuilder {
+export type TranBuilder = {
   translate(x : number, y : number) : TranBuilder;
   rotate(rad : number) : TranBuilder;
   scale(x : number, y : number) : TranBuilder;
@@ -29,34 +29,33 @@ export interface TranBuilder {
   build() : string;
 }
 
-
-export const pathBuilder : () => PathBuilder = function() {
+export function pathBuilder() : PathBuilder {
   let d = '';
   return {
-    moveTo : function(x, y) { d += 'M' + x + ' ' + y; return this; },
-    lineTo : function(x, y) { d += 'L' + x + ' ' + y; return this; },
-    quadTo : function(cx, cy, x, y) {
+    moveTo(x, y) { d += 'M' + x + ' ' + y; return this; },
+    lineTo(x, y) { d += 'L' + x + ' ' + y; return this; },
+    quadTo(cx, cy, x, y) {
       d += 'Q' + cx + ' ' + cy +' ' + x + ' ' + y; return this; },
-    cubicTo : function(cx1, cy1, cx2, cy2, x, y) {
+    cubicTo(cx1, cy1, cx2, cy2, x, y) {
       d += 'C' + cx1 + ' ' + cy1 +' ' + cx2 + ' ' + cy2 +' ' +
         x + ' ' + y; return this; },
-    close : function() { d += 'Z'; return this; },
-    build : function() { return d; }
+    close() { d += 'Z'; return this; },
+    build() { return d; }
   };
 };
 
-export const tranBuilder : () => TranBuilder = function() {
+export function tranBuilder() :TranBuilder {
   let t = '';
   return {
-    translate : function(x, y) {
+    translate(x, y) {
       t += 'translate(' + x + ' ' + y + ')'; return this; },
-    rotate : function(rad) { t += 'rotate(' + math.r2d(rad) + ')'; return this; },
-    scale : function(x, y) {
+    rotate(rad) { t += 'rotate(' + math.r2d(rad) + ')'; return this; },
+    scale(x, y) {
       t += 'scale(' + x + ' ' + y + ')'; return this; },
-    skewX : function(rad) {
+    skewX(rad) {
       t += 'skewX(' + math.r2d(rad) + ')'; return this; },
-    skewY : function(rad) {
+    skewY(rad) {
       t += 'skewY(' + math.r2d(rad) + ')'; return this; },
-    build : function() { return t; }
+    build() { return t; }
   };
 };

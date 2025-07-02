@@ -9,10 +9,6 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-type EventListener = (event : {type : string}, detail? : any) => void;
-
-type ElementParams = {[k : string] : any};
-
 /*
 export const testoo = function<O, K extends keyof O>(o : O, k : K, v : any) => O;
 
@@ -30,9 +26,13 @@ export function testoo(o : any, k : string, v : any) {
 };
 
 
+type EventListener = (event : {type : string}, detail? : any) => void;
+
+type ElementParams = {[k : string] : any};
+
 type ELType = HTMLElement | SVGElement;
 
-export interface DOMWrapper {
+type DOMWrapper = {
   $el : ELType;
   on(type : string, l : EventListener) : DOMWrapper;
   off(type : string, l : EventListener) : DOMWrapper;
@@ -42,8 +42,16 @@ export interface DOMWrapper {
   append($elm : DOMWrapper) : DOMWrapper;
   remove($elm : DOMWrapper) : DOMWrapper;
 };
-
+/*
 export const extend = function(o : any, a : any) {
+  for (let k in a) {
+    o[k] = a[k];
+  }
+  return o;
+};
+*/
+export function extend<S, T, U extends S & T>(o : S, a : T) : U;
+export function extend(o : any, a : any) : any {
   for (let k in a) {
     o[k] = a[k];
   }

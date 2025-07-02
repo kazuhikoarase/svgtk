@@ -11,24 +11,24 @@
 
 import { extend } from './core';
 
-export const d2r = (deg : number) => deg / 180 * Math.PI;
-export const r2d = (rad : number) => rad / Math.PI * 180;
+export function d2r(deg : number) { return deg / 180 * Math.PI }
+export function r2d(rad : number) { return rad / Math.PI * 180 }
 
-const inv = function(m : number[]) {
+function inv(m : number[]) {
   const det = m[0] * m[3] - m[1] * m[2];
   return [m[3] / det, -m[1] / det, -m[2] / det, m[0] / det];
-};
+}
 
-export const getCrossPoint = function(a : number[], va : number[], b : number[], vb : number[]) {
+export function getCrossPoint(a : number[], va : number[], b : number[], vb : number[]) {
   const m = inv([va[0], -vb[0], va[1], -vb[1]]);
   const v = [b[0] - a[0], b[1] - a[1]];
   //const st = [m[0] * v[0] + m[1] * v[1], m[2] * v[0] + m[3] * v[1]];
   //return [a[0] + va[0] * st[0], a[1] + va[1] * st[0]];
   const s = m[0] * v[0] + m[1] * v[1];
   return [a[0] + va[0] * s, a[1] + va[1] * s];
-};
+}
 
-export interface QuadPointsOpts {
+export type QuadPointsOpts = {
   fn : (t : number) => number[];
   min : number;
   max : number;
@@ -36,7 +36,7 @@ export interface QuadPointsOpts {
   dt : number;
 }
 
-export const getQuadPoints = function(opts : QuadPointsOpts) {
+export function getQuadPoints(opts : QuadPointsOpts) {
 
   opts = extend({
     fn : function(t : number) { return [t, t] },

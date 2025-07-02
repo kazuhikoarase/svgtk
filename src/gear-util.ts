@@ -32,13 +32,13 @@ const get_fn = function(r : number, t0 : number) {
 
 const quadParams = { n : 3, dt : 0.05 };
 
-export interface GearOpts {
+export type GearOpts = {
   m : number;
   z : number;
   a : number;
 }
 
-export interface PieOpts {
+export type PieOpts = {
   r1 : number;
   r2 : number;
   r3 : number;
