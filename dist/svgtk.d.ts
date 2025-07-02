@@ -59,8 +59,7 @@ declare namespace mat4 {
         mat4_2 as mat4,
         NumArray,
         Mat4Funcs,
-        Mat4,
-        mat4_2 as default
+        Mat4
     }
 }
 

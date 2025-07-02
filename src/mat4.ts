@@ -201,5 +201,3 @@ export function mat4(m? : NumArray) : Mat4 {
   Object.setPrototypeOf(m, fn);
   return m as Mat4;
 };
-
-export default mat4;
