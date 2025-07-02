@@ -13,9 +13,8 @@ declare const d2r: (deg: number) => number;
 declare const _default: {
     core: typeof core;
     math: typeof math;
+    util: typeof util;
     mat4: (m?: mat4.NumArray) => mat4.Mat4;
-    pathBuilder: () => util.PathBuilder;
-    tranBuilder: () => util.TranBuilder;
 };
 export default _default;
 

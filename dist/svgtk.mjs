@@ -5,7 +5,7 @@ const h = function(e, n) {
   for (let r in n)
     e[r] = n[r];
   return e;
-}, _ = function() {
+}, p = function() {
   let e = null;
   return {
     trigger: function(n, r) {
@@ -28,7 +28,7 @@ const h = function(e, n) {
       }));
     }
   };
-}, p = function() {
+}, v = function() {
   const e = {};
   return "svg g path rect circle text".split(/\s+/g).forEach(function(n) {
     e[n] = !0;
@@ -64,19 +64,19 @@ const h = function(e, n) {
       }
     };
   };
-}(), v = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}(), b = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  domWrapper: p,
-  eventTarget: _,
+  domWrapper: v,
+  eventTarget: p,
   extend: h,
   testoo: g
-}, Symbol.toStringTag, { value: "Module" })), m = (e) => e / 180 * Math.PI, l = (e) => e / Math.PI * 180, M = function(e) {
+}, Symbol.toStringTag, { value: "Module" })), m = (e) => e / 180 * Math.PI, l = (e) => e / Math.PI * 180, y = function(e) {
   const n = e[0] * e[3] - e[1] * e[2];
   return [e[3] / n, -e[1] / n, -e[2] / n, e[0] / n];
 }, d = function(e, n, r, c) {
-  const t = M([n[0], -c[0], n[1], -c[1]]), o = [r[0] - e[0], r[1] - e[1]], i = t[0] * o[0] + t[1] * o[1];
+  const t = y([n[0], -c[0], n[1], -c[1]]), o = [r[0] - e[0], r[1] - e[1]], i = t[0] * o[0] + t[1] * o[1];
   return [e[0] + n[0] * i, e[1] + n[1] * i];
-}, $ = function(e) {
+}, _ = function(e) {
   e = h({
     fn: function(t) {
       return [t, t];
@@ -119,33 +119,33 @@ const h = function(e, n) {
   })();
   const c = r;
   return c.points = n, r;
-}, b = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, M = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   d2r: m,
   getCrossPoint: d,
-  getQuadPoints: $,
+  getQuadPoints: _,
   r2d: l
 }, Symbol.toStringTag, { value: "Module" })), a = function() {
   const e = {
     concat: function(t) {
       const o = this, i = [];
       i.length = 16;
-      for (let u = 0; u < i.length; u += 1) {
+      for (let s = 0; s < i.length; s += 1) {
         let f = 0;
-        for (let s = 0; s < 4; s += 1)
-          f += o[~~(u / 4) * 4 + s] * t[u % 4 + s * 4];
-        i[u] = f;
+        for (let u = 0; u < 4; u += 1)
+          f += o[~~(s / 4) * 4 + u] * t[s % 4 + u * 4];
+        i[s] = f;
       }
       return a(i);
     },
     transform: function(t) {
       const o = this, i = [];
       i.length = t.length;
-      for (let u = 0; u < i.length; u += 1) {
+      for (let s = 0; s < i.length; s += 1) {
         let f = 0;
-        for (let s = 0; s < t.length; s += 1)
-          f += o[s * 4 + u] * t[s];
-        i[u] = f;
+        for (let u = 0; u < t.length; u += 1)
+          f += o[u * 4 + s] * t[u];
+        i[s] = f;
       }
       return i;
     },
@@ -363,21 +363,21 @@ const h = function(e, n) {
         -t[0] * t[5] * t[14] + t[0] * t[6] * t[13] + t[4] * t[1] * t[14] - t[4] * t[2] * t[13] - t[12] * t[1] * t[6] + t[12] * t[2] * t[5],
         t[0] * t[5] * t[10] - t[0] * t[6] * t[9] - t[4] * t[1] * t[10] + t[4] * t[2] * t[9] + t[8] * t[1] * t[6] - t[8] * t[2] * t[5]
       ], i = t[0] * o[0] + t[1] * o[4] + t[2] * o[8] + t[3] * o[12];
-      return a(o.map(function(u) {
-        return u / i;
+      return a(o.map(function(s) {
+        return s / i;
       }));
     }
-  }, n = e, r = [];
-  n.__proto__ = r.__proto__;
+  };
+  Object.setPrototypeOf(e, Object.getPrototypeOf([]));
   const c = function() {
     return [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
   };
   return function(t) {
     t = t || c();
     const o = t;
-    return o.__proto__ = e, o;
+    return Object.setPrototypeOf(o, e), o;
   };
-}(), k = function() {
+}(), O = function() {
   let e = "";
   return {
     moveTo: function(n, r) {
@@ -399,7 +399,7 @@ const h = function(e, n) {
       return e;
     }
   };
-}, y = function() {
+}, j = function() {
   let e = "";
   return {
     translate: function(n, r) {
@@ -421,14 +421,17 @@ const h = function(e, n) {
       return e;
     }
   };
-}, w = {
-  core: v,
-  math: b,
-  mat4: a,
-  pathBuilder: k,
-  tranBuilder: y
+}, P = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  pathBuilder: O,
+  tranBuilder: j
+}, Symbol.toStringTag, { value: "Module" })), $ = {
+  core: b,
+  math: M,
+  util: P,
+  mat4: a
 };
 export {
-  w as default
+  $ as default
 };
 //# sourceMappingURL=svgtk.mjs.map

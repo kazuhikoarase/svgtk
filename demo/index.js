@@ -9,8 +9,8 @@ const eventTarget = svgtk.core.eventTarget;
 const $ = svgtk.core.domWrapper;
 const getCrossPoint = svgtk.math.getCrossPoint;
 const getQuadPoints = svgtk.math.getQuadPoints;
-const $pb = svgtk.pathBuilder;
-const $tb = svgtk.tranBuilder;
+const $pb = svgtk.util.pathBuilder;
+const $tb = svgtk.util.tranBuilder;
 
 window.addEventListener('load', function() {
 

@@ -193,7 +193,7 @@ export const mat4 : (m? : NumArray) => Mat4 = function() {
 
   const dst : any = fn;
   const src : any = [];
-  dst.__proto__ = src.__proto__;
+  Object.setPrototypeOf(dst, Object.getPrototypeOf(src) );
 
   const identity : () => NumArray = function() {
     return [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
@@ -202,7 +202,7 @@ export const mat4 : (m? : NumArray) => Mat4 = function() {
   return function(m?) {
     m = m || identity();
     const _m : Mat4 | any = m;
-    _m.__proto__ = fn;
+    Object.setPrototypeOf(_m, fn);
     return _m;
   };
 }();

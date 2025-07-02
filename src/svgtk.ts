@@ -17,7 +17,6 @@ import * as util from './util';
 export default {
   core,
   math,
-  mat4 : mat4.mat4,
-  pathBuilder : util.pathBuilder,
-  tranBuilder : util.tranBuilder
+  util,
+  mat4 : mat4.mat4
 }

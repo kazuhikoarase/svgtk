@@ -1,5 +1,5 @@
 import w from "./svgtk.mjs";
-const z = w.core.extend, b = w.math.getQuadPoints, v = w.pathBuilder, A = w.mat4, q = function(n, e) {
+const z = w.core.extend, b = w.math.getQuadPoints, v = w.util.pathBuilder, A = w.mat4, q = function(n, e) {
   return Math.sqrt(e * e / (n * n) - 1);
 }, g = function(n, e) {
   return function(s) {

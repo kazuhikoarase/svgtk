@@ -13,7 +13,7 @@ import svgtk from './svgtk';
 
 const extend = svgtk.core.extend;
 const getQuadPoints = svgtk.math.getQuadPoints;
-const $pb = svgtk.pathBuilder;
+const $pb = svgtk.util.pathBuilder;
 const mat4 = svgtk.mat4;
 
 // t = sqrt(rr^2 / r^2 - 1)
