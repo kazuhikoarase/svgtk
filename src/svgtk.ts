@@ -1,7 +1,7 @@
 //
 // svgtk
 //
-// Copyright (c) 2023 Kazuhiko Arase
+// Copyright (c) 2025 Kazuhiko Arase
 //
 // URL: http://www.d-project.com/
 //
@@ -11,7 +11,13 @@
 
 import * as core from './core';
 import * as math from './math';
-import mat4 from './mat4';
-import { pathBuilder, tranBuilder} from './svg-util';
+import * as mat4 from './mat4';
+import * as util from './util';
 
-export default { core, math, mat4, pathBuilder, tranBuilder }
+export default {
+  core,
+  math,
+  mat4 : mat4.mat4,
+  pathBuilder : util.pathBuilder,
+  tranBuilder : util.tranBuilder
+}

@@ -9,12 +9,31 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-type EventListener = (event : {type : string}, detail : any) => void;
+type EventListener = (event : {type : string}, detail? : any) => void;
 
 type ElementParams = {[k : string] : any};
 
+/*
+export const testoo = function<O, K extends keyof O>(o : O, k : K, v : any) => O;
+
+export const testoo  = function(o : O, k : string, v : any) {
+  o[k] = v;
+  return o;
+};
+*/
+
+
+export function testoo<O extends HTMLElement | SVGElement, K extends keyof O>(o : O, k : K, v : O[K]) : O;
+export function testoo(o : any, k : string, v : any) {
+  o[k] = v;
+  return o;
+};
+
+
+type ELType = HTMLElement | SVGElement;
+
 export interface DOMWrapper {
-  $el : HTMLElement | SVGElement | any;
+  $el : ELType;
   on(type : string, l : EventListener) : DOMWrapper;
   off(type : string, l : EventListener) : DOMWrapper;
   attrs(params : ElementParams) : DOMWrapper;
@@ -24,12 +43,9 @@ export interface DOMWrapper {
   remove($elm : DOMWrapper) : DOMWrapper;
 };
 
-export const extend = function(o : any, ...args : any[]) {
-  for (let i = 0; i < args.length; i += 1) {
-    const a = args[i];
-    for (let k in a) {
-      o[k] = a[k];
-    }
+export const extend = function(o : any, a : any) {
+  for (let k in a) {
+    o[k] = a[k];
   }
   return o;
 };
@@ -92,13 +108,13 @@ export const domWrapper = function() {
         }
         return this
       },
-      props: function(params) {
+      props: function(this : any, params) {
         for (let k in params) {
           this.$el[k] = params[k];
         }
         return this
       },
-      style: function(params) {
+      style: function(this : any, params) {
         for (let k in params) {
           this.$el.style[k] = '' + params[k];
         }

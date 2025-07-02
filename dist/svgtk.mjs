@@ -1,11 +1,11 @@
-const h = function(e, ...n) {
-  for (let r = 0; r < n.length; r += 1) {
-    const c = n[r];
-    for (let t in c)
-      e[t] = c[t];
-  }
+function g(e, n, r) {
+  return e[n] = r, e;
+}
+const h = function(e, n) {
+  for (let r in n)
+    e[r] = n[r];
   return e;
-}, g = function() {
+}, _ = function() {
   let e = null;
   return {
     trigger: function(n, r) {
@@ -28,7 +28,7 @@ const h = function(e, ...n) {
       }));
     }
   };
-}, _ = function() {
+}, p = function() {
   const e = {};
   return "svg g path rect circle text".split(/\s+/g).forEach(function(n) {
     e[n] = !0;
@@ -64,18 +64,19 @@ const h = function(e, ...n) {
       }
     };
   };
-}(), p = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}(), v = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  domWrapper: _,
-  eventTarget: g,
-  extend: h
-}, Symbol.toStringTag, { value: "Module" })), v = (e) => e / 180 * Math.PI, l = (e) => e / Math.PI * 180, m = function(e) {
+  domWrapper: p,
+  eventTarget: _,
+  extend: h,
+  testoo: g
+}, Symbol.toStringTag, { value: "Module" })), m = (e) => e / 180 * Math.PI, l = (e) => e / Math.PI * 180, M = function(e) {
   const n = e[0] * e[3] - e[1] * e[2];
   return [e[3] / n, -e[1] / n, -e[2] / n, e[0] / n];
 }, d = function(e, n, r, c) {
-  const t = m([n[0], -c[0], n[1], -c[1]]), o = [r[0] - e[0], r[1] - e[1]], i = t[0] * o[0] + t[1] * o[1];
+  const t = M([n[0], -c[0], n[1], -c[1]]), o = [r[0] - e[0], r[1] - e[1]], i = t[0] * o[0] + t[1] * o[1];
   return [e[0] + n[0] * i, e[1] + n[1] * i];
-}, M = function(e) {
+}, $ = function(e) {
   e = h({
     fn: function(t) {
       return [t, t];
@@ -118,33 +119,33 @@ const h = function(e, ...n) {
   })();
   const c = r;
   return c.points = n, r;
-}, $ = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, b = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  d2r: v,
+  d2r: m,
   getCrossPoint: d,
-  getQuadPoints: M,
+  getQuadPoints: $,
   r2d: l
 }, Symbol.toStringTag, { value: "Module" })), a = function() {
   const e = {
     concat: function(t) {
       const o = this, i = [];
       i.length = 16;
-      for (let s = 0; s < i.length; s += 1) {
+      for (let u = 0; u < i.length; u += 1) {
         let f = 0;
-        for (let u = 0; u < 4; u += 1)
-          f += o[~~(s / 4) * 4 + u] * t[s % 4 + u * 4];
-        i[s] = f;
+        for (let s = 0; s < 4; s += 1)
+          f += o[~~(u / 4) * 4 + s] * t[u % 4 + s * 4];
+        i[u] = f;
       }
       return a(i);
     },
     transform: function(t) {
       const o = this, i = [];
       i.length = t.length;
-      for (let s = 0; s < i.length; s += 1) {
+      for (let u = 0; u < i.length; u += 1) {
         let f = 0;
-        for (let u = 0; u < t.length; u += 1)
-          f += o[u * 4 + s] * t[u];
-        i[s] = f;
+        for (let s = 0; s < t.length; s += 1)
+          f += o[s * 4 + u] * t[s];
+        i[u] = f;
       }
       return i;
     },
@@ -362,8 +363,8 @@ const h = function(e, ...n) {
         -t[0] * t[5] * t[14] + t[0] * t[6] * t[13] + t[4] * t[1] * t[14] - t[4] * t[2] * t[13] - t[12] * t[1] * t[6] + t[12] * t[2] * t[5],
         t[0] * t[5] * t[10] - t[0] * t[6] * t[9] - t[4] * t[1] * t[10] + t[4] * t[2] * t[9] + t[8] * t[1] * t[6] - t[8] * t[2] * t[5]
       ], i = t[0] * o[0] + t[1] * o[4] + t[2] * o[8] + t[3] * o[12];
-      return a(o.map(function(s) {
-        return s / i;
+      return a(o.map(function(u) {
+        return u / i;
       }));
     }
   }, n = e, r = [];
@@ -376,7 +377,7 @@ const h = function(e, ...n) {
     const o = t;
     return o.__proto__ = e, o;
   };
-}(), b = function() {
+}(), k = function() {
   let e = "";
   return {
     moveTo: function(n, r) {
@@ -398,7 +399,7 @@ const h = function(e, ...n) {
       return e;
     }
   };
-}, k = function() {
+}, y = function() {
   let e = "";
   return {
     translate: function(n, r) {
@@ -420,8 +421,14 @@ const h = function(e, ...n) {
       return e;
     }
   };
-}, y = { core: p, math: $, mat4: a, pathBuilder: b, tranBuilder: k };
+}, w = {
+  core: v,
+  math: b,
+  mat4: a,
+  pathBuilder: k,
+  tranBuilder: y
+};
 export {
-  y as default
+  w as default
 };
 //# sourceMappingURL=svgtk.mjs.map

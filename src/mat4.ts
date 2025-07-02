@@ -9,11 +9,11 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
-export type Mat4Array = number[];
+export type NumArray = number[];
 
-type Mat4Funcs = {
-  concat(m : Mat4Array) : Mat4;
-  transform(m : Mat4Array) : Mat4Array;
+export type Mat4Funcs = {
+  concat(m : NumArray) : Mat4;
+  transform(m : NumArray) : NumArray;
   translateX(t : number) : Mat4;
   translateY(t : number) : Mat4;
   translateZ(t : number) : Mat4;
@@ -25,29 +25,13 @@ type Mat4Funcs = {
   rotateZ(r : number) : Mat4;
   translate(t : { x : number, y : number, z : number}) : Mat4;
   scale(s : { x : number, y : number, z : number} | number) : Mat4;
-  transpose() : Mat4Array;
+  transpose() : NumArray;
   invert() : Mat4;
 }
 
-export interface Mat4 extends Mat4Array, Mat4Funcs {
-  concat(m : Mat4Array) : Mat4;
-  transform(m : Mat4Array) : Mat4Array;
-  translateX(t : number) : Mat4;
-  translateY(t : number) : Mat4;
-  translateZ(t : number) : Mat4;
-  scaleX(s : number) : Mat4;
-  scaleY(s : number) : Mat4;
-  scaleZ(s : number) : Mat4;
-  rotateX(r : number) : Mat4;
-  rotateY(r : number) : Mat4;
-  rotateZ(r : number) : Mat4;
-  translate(t : { x : number, y : number, z : number}) : Mat4;
-  scale(s : { x : number, y : number, z : number} | number) : Mat4;
-  transpose() : Mat4Array;
-  invert() : Mat4;
-}
+export type Mat4 = NumArray & Mat4Funcs;
 
-export const mat4 : (m? : Mat4Array) => Mat4 = function() {
+export const mat4 : (m? : NumArray) => Mat4 = function() {
   const fn : Mat4Funcs = {
     concat : function(n) {
       const m : any = this;
@@ -211,7 +195,7 @@ export const mat4 : (m? : Mat4Array) => Mat4 = function() {
   const src : any = [];
   dst.__proto__ = src.__proto__;
 
-  const identity : () => Mat4Array = function() {
+  const identity : () => NumArray = function() {
     return [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1];
   };
 

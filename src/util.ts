@@ -1,7 +1,7 @@
 //
-// svg-util
+// util
 //
-// Copyright (c) 2023 Kazuhiko Arase
+// Copyright (c) 2025 Kazuhiko Arase
 //
 // URL: http://www.d-project.com/
 //
