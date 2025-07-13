@@ -1,34 +1,48 @@
 {
   "name": "svgtk",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "SVG Toolkit",
-  "author": "Kazuhiko Arase",
-  "license": "MIT",
-  "main": "dist/svgtk.js",
-  "module": "dist/svgtk.mjs",
-  "types": "dist/svgtk.d.ts",
-  "exports": {
-    "types": "./dist/svgtk.d.ts",
-    "require": "./dist/svgtk.js",
-    "import": "./dist/svgtk.mjs"
+  "keywords": [
+    "SVG"
+  ],
+  "bugs": {
+    "url": "https://github.com/kazuhikoarase/svgtk/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/kazuhikoarase/svgtk.git"
   },
-  "bugs": {
-    "url": "https://github.com/kazuhikoarase/svgtk/issues"
+  "license": "MIT",
+  "author": "Kazuhiko Arase",
+  "exports": {
+    ".": {
+      "types": "./dist/svgtk.d.ts",
+      "require": "./dist/svgtk.js",
+      "import": "./dist/svgtk.mjs"
+    },
+    "./mat4": {
+      "types": "./dist/mat4.d.ts",
+      "require": "./dist/mat4.js",
+      "import": "./dist/mat4.mjs"
+    },
+    "./gear-util": {
+      "types": "./dist/gear-util.d.ts",
+      "require": "./dist/gear-util.js",
+      "import": "./dist/gear-util.mjs"
+    }
   },
-  "keywords": [
-    "SVG"
-  ],
+  "main": "dist/svgtk.js",
+  "module": "dist/svgtk.mjs",
+  "types": "dist/svgtk.d.ts",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "vite",
+    "preview": "vite preview",
+    "sort": "sort-package-json"
   },
   "devDependencies": {
     "@types/node": "^24.0.6",
+    "sort-package-json": "^3.4.0",
     "typescript": "~5.8.3",
     "vite": "^7.0.0",
     "vite-plugin-dts": "^4.5.4"
