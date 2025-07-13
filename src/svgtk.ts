@@ -11,12 +11,10 @@
 
 import * as core from './core';
 import * as math from './math';
-import * as mat4 from './mat4';
 import * as util from './util';
 
 export default {
   core,
   math,
   util,
-  mat4 : mat4.mat4
 }

@@ -9,12 +9,12 @@
 //  http://www.opensource.org/licenses/mit-license.php
 //
 
+import { mat4 } from './mat4';
 import svgtk from './svgtk';
 
 const extend = svgtk.core.extend;
 const getQuadPoints = svgtk.math.getQuadPoints;
 const $pb = svgtk.util.pathBuilder;
-const mat4 = svgtk.mat4;
 
 // t = sqrt(rr^2 / r^2 - 1)
 const get_t = function(r : number, rr : number) {

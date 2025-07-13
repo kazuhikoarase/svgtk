@@ -13,7 +13,6 @@ declare const _default: {
     core: typeof core;
     math: typeof math;
     util: typeof util;
-    mat4: typeof mat4.mat4;
 };
 export default _default;
 
@@ -52,45 +51,6 @@ declare function getCrossPoint(a: number[], va: number[], b: number[], vb: numbe
 
 declare function getQuadPoints(opts: QuadPointsOpts): number[][];
 
-declare type Mat4 = NumArray & Mat4Funcs;
-
-declare namespace mat4 {
-    export {
-        mat4_2 as mat4,
-        NumArray,
-        Mat4Funcs,
-        Mat4
-    }
-}
-
-declare function mat4_2(m?: NumArray): Mat4;
-
-declare type Mat4Funcs = {
-    concat(m: NumArray): Mat4;
-    transform(m: NumArray): NumArray;
-    translateX(t: number): Mat4;
-    translateY(t: number): Mat4;
-    translateZ(t: number): Mat4;
-    scaleX(s: number): Mat4;
-    scaleY(s: number): Mat4;
-    scaleZ(s: number): Mat4;
-    rotateX(r: number): Mat4;
-    rotateY(r: number): Mat4;
-    rotateZ(r: number): Mat4;
-    translate(t: {
-        x: number;
-        y: number;
-        z: number;
-    }): Mat4;
-    scale(s: {
-        x: number;
-        y: number;
-        z: number;
-    } | number): Mat4;
-    transpose(): NumArray;
-    invert(): Mat4;
-};
-
 declare namespace math {
     export {
         d2r,
@@ -100,8 +60,6 @@ declare namespace math {
         QuadPointsOpts
     }
 }
-
-declare type NumArray = number[];
 
 declare type PathBuilder = {
     moveTo(x: number, y: number): PathBuilder;
